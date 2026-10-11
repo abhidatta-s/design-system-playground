@@ -1,0 +1,112 @@
+/*
+ * The design system under test. Everything here reads from generated CSS variables
+ * (see src/lib/css.ts) scoped to .ds-scope; nothing is hard-coded.
+ */
+.ds-scope {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  padding: 8px 28px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Button */
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--space-2) * var(--density));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.05s;
+}
+.ds-btn--sm { font-size: var(--font-size-sm); padding: calc(var(--space-1) * var(--density)) calc(var(--space-3) * var(--density)); }
+.ds-btn--md { font-size: var(--font-size-base); padding: calc(var(--space-2) * var(--density)) calc(var(--space-4) * var(--density)); }
+.ds-btn--lg { font-size: var(--font-size-lg); padding: calc(var(--space-3) * var(--density)) calc(var(--space-5) * var(--density)); }
+
+.ds-btn--primary { background: var(--primary); color: var(--primary-fg); }
+.ds-btn--primary:hover:not(:disabled) { background: var(--primary-hover); }
+.ds-btn--primary:active:not(:disabled) { background: var(--primary-active); }
+
+.ds-btn--secondary { background: var(--surface); color: var(--text); border-color: var(--border-strong); }
+.ds-btn--secondary:hover:not(:disabled) { background: var(--surface-muted); }
+.ds-btn--secondary:active:not(:disabled) { background: var(--border); }
+
+.ds-btn--ghost { background: transparent; color: var(--text); }
+.ds-btn--ghost:hover:not(:disabled) { background: var(--surface-muted); }
+.ds-btn--ghost:active:not(:disabled) { background: var(--border); }
+
+.ds-btn--danger { background: var(--danger); color: var(--danger-fg); }
+.ds-btn--danger:hover:not(:disabled) { background: var(--danger-hover); }
+.ds-btn--danger:active:not(:disabled) { background: var(--danger-active); }
+
+.ds-btn:active:not(:disabled) { transform: translateY(0.5px); }
+.ds-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ds-scope .ds-btn:focus-visible,
+.ds-scope .ds-input:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Input */
+.ds-field { display: flex; flex-direction: column; gap: calc(var(--space-2) * var(--density)); min-width: 0; }
+.ds-field__label { font-size: var(--font-size-sm); font-weight: 600; }
+.ds-field__hint { font-size: var(--font-size-xs); color: var(--text-muted); }
+.ds-field__hint--error { color: var(--danger-subtle-fg); }
+.ds-input {
+  width: 100%;
+  padding: calc(var(--space-2) * var(--density)) calc(var(--space-3) * var(--density));
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ds-input::placeholder { color: var(--text-subtle); }
+.ds-input:hover:not(:disabled) { border-color: var(--text-subtle); }
+.ds-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 30%, transparent); outline: none; }
+.ds-input--error { border-color: var(--danger); }
+.ds-input--error:focus { border-color: var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 30%, transparent); }
+.ds-input:disabled { background: var(--surface-muted); color: var(--text-muted); cursor: not-allowed; }
+
+/* Card */
+.ds-card {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-3) * var(--density));
+  padding: calc(var(--space-5) * var(--density));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 12%);
+}
+.ds-card__header { display: flex; flex-direction: column; gap: calc(var(--space-2) * var(--density)); align-items: flex-start; }
+.ds-card__title { font-size: var(--font-size-lg); font-weight: 650; letter-spacing: -0.01em; line-height: 1.3; }
+.ds-card__body { color: var(--text-muted); font-size: var(--font-size-sm); }
+.ds-card__footer { display: flex; justify-content: flex-end; gap: calc(var(--space-2) * var(--density)); margin-top: calc(var(--space-2) * var(--density)); }
+
+/* Badge */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: calc(var(--space-1) * var(--density) * 0.5) calc(var(--space-2) * var(--density));
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.ds-badge--neutral { background: var(--surface-muted); color: var(--text-muted); box-shadow: inset 0 0 0 1px var(--border-strong); }
+.ds-badge--primary { background: var(--primary-subtle); color: var(--primary-subtle-fg); }
+.ds-badge--success { background: var(--success-subtle); color: var(--success-subtle-fg); }
+.ds-badge--warning { background: var(--warning-subtle); color: var(--warning-subtle-fg); }
+.ds-badge--danger { background: var(--danger-subtle); color: var(--danger-subtle-fg); }

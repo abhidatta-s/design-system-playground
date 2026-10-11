@@ -1,0 +1,98 @@
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 12px 24px;
+  background: color-mix(in srgb, var(--app-bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--app-border);
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand__mark {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--app-elev);
+  border: 1px solid var(--app-border-strong);
+}
+.brand__mark::before,
+.brand__mark::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--app-accent);
+}
+.brand__mark::before { top: 6px; left: 6px; }
+.brand__mark::after { bottom: 6px; right: 6px; opacity: 0.5; }
+.brand__title { font-size: 15px; font-weight: 650; letter-spacing: -0.01em; line-height: 1.2; }
+.brand__sub { font-size: 12px; color: var(--app-muted); }
+
+.topbar__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--app-panel);
+  border: 1px solid var(--app-border);
+  border-radius: 10px;
+}
+.segmented__item {
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--app-muted);
+  font-size: 12.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.segmented__item:hover { color: var(--app-text); }
+.segmented__item.is-active { background: var(--app-elev); color: var(--app-text); box-shadow: 0 0 0 1px var(--app-border-strong); }
+
+.reset-btn {
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--app-border-strong);
+  background: transparent;
+  color: var(--app-text);
+  font-size: 12.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.reset-btn:hover:not(:disabled) { background: var(--app-elev); }
+.reset-btn:disabled { opacity: 0.4; cursor: default; }
+
+.app__body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  align-items: start;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .app__body { grid-template-columns: minmax(0, 1fr); }
+  .topbar { position: static; padding: 12px 16px; }
+  .main { padding: 16px; }
+}

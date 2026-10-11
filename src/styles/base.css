@@ -1,0 +1,81 @@
+/* Chrome (app shell) tokens. The previewed design system uses its own generated variables. */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --app-bg: #0a0c10;
+  --app-panel: #0f1217;
+  --app-elev: #161a22;
+  --app-border: #1f242e;
+  --app-border-strong: #2c3340;
+  --app-text: #e9ebf1;
+  --app-muted: #8c94a6;
+  --app-accent: #8f85ff;
+  --app-accent-fg: #0b0a1a;
+  --app-shadow: 0 1px 0 rgb(255 255 255 / 3%) inset, 0 8px 24px rgb(0 0 0 / 30%);
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --app-bg: #f4f5f8;
+  --app-panel: #ffffff;
+  --app-elev: #f0f1f5;
+  --app-border: #e3e5ec;
+  --app-border-strong: #cfd3de;
+  --app-text: #13161d;
+  --app-muted: #5a6275;
+  --app-accent: #5a4bd8;
+  --app-accent-fg: #ffffff;
+  --app-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 8px 24px rgb(16 24 40 / 6%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p, ul, fieldset, pre {
+  margin: 0;
+  padding: 0;
+}
+ul { list-style: none; }
+
+button, input { font: inherit; color: inherit; }
+
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
