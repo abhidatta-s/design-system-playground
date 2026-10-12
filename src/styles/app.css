@@ -112,3 +112,4 @@ body{font-family:var(--ds-font);font-feature-settings:"cv11","ss01","ss03"}
 :focus-visible{outline:2px solid #22d3ee;outline-offset:2px}
 .main{animation:ds-rise .6s var(--ds-ease) both}
 @media (prefers-reduced-motion:reduce){.main{animation:none}.segmented__item:active,.reset-btn:active{transform:none}}
+:root[data-theme="light"] :focus-visible{outline-color:#0e7490}

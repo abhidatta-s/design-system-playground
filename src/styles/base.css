@@ -17,16 +17,16 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --app-bg: #f4f5f8;
-  --app-panel: #ffffff;
-  --app-elev: #f0f1f5;
-  --app-border: #e3e5ec;
-  --app-border-strong: #cfd3de;
-  --app-text: #13161d;
-  --app-muted: #5a6275;
-  --app-accent: #5a4bd8;
-  --app-accent-fg: #ffffff;
-  --app-shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 8px 24px rgb(16 24 40 / 6%);
+  --app-bg: #e9edf2;
+  --app-panel: #f3f5f8;
+  --app-elev: #f8f9fb;
+  --app-border: rgb(42 48 59 / 10%);
+  --app-border-strong: rgb(42 48 59 / 18%);
+  --app-text: #2a303b;
+  --app-muted: #5f6672;
+  --app-accent: #5b56c2;
+  --app-accent-fg: #f8f9fb;
+  --app-shadow: 0 1px 0 rgb(255 255 255 / 70%) inset, 0 1px 2px rgb(30 40 60 / 6%), 0 16px 40px -24px rgb(30 40 60 / 28%);
 }
 
 *,
