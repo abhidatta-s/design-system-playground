@@ -115,7 +115,7 @@ export function Preview({ settings }: { settings: Settings }) {
           <p style={{ fontSize: "var(--font-size-lg)" }}>Large body copy for introductions and callouts.</p>
           <p style={{ fontSize: "var(--font-size-base)" }}>Base body copy sets the rhythm for everything else on the page.</p>
           <p style={{ fontSize: "var(--font-size-sm)", color: "var(--text-muted)" }}>Small text for helper copy and secondary details.</p>
-          <p style={{ fontSize: "var(--font-size-xs)", color: "var(--text-subtle)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          <p style={{ fontSize: "var(--font-size-xs)", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
             Caption
           </p>
         </div>

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { CodePanel } from "./components/code/CodePanel";
 import { ControlsPanel } from "./components/controls/ControlsPanel";
 import { TopBar } from "./components/layout/TopBar";
+import DemoBar from "./components/layout/DemoBar";
 import { Preview } from "./components/preview/Preview";
 import { useSettings } from "./hooks/useSettings";
 import { generateReactSample } from "./lib/codegen";
@@ -14,10 +15,11 @@ export default function App() {
 
   return (
     <div className="app">
+      <DemoBar name="Design System Playground" app />
       <TopBar settings={settings} isDefault={isDefault} onChange={update} onReset={reset} />
       <div className="app__body">
         <ControlsPanel settings={settings} onChange={update} />
-        <main className="main">
+        <main className="main" id="main">
           <Preview settings={settings} />
           <div className="code-grid">
             <CodePanel title="CSS variables" filename="tokens.css" code={css} />

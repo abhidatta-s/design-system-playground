@@ -2,16 +2,16 @@
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --app-bg: #0a0c10;
-  --app-panel: #0f1217;
-  --app-elev: #161a22;
-  --app-border: #1f242e;
-  --app-border-strong: #2c3340;
-  --app-text: #e9ebf1;
-  --app-muted: #8c94a6;
+  --app-bg: #08090c;
+  --app-panel: #111218;
+  --app-elev: #16171f;
+  --app-border: rgb(255 255 255 / 8%);
+  --app-border-strong: rgb(255 255 255 / 14%);
+  --app-text: #f7f8f8;
+  --app-muted: #9a9fae;
   --app-accent: #8f85ff;
   --app-accent-fg: #0b0a1a;
-  --app-shadow: 0 1px 0 rgb(255 255 255 / 3%) inset, 0 8px 24px rgb(0 0 0 / 30%);
+  --app-shadow: 0 1px 0 rgb(255 255 255 / 5%) inset, 0 20px 50px -30px rgb(0 0 0 / 80%);
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
 }
 

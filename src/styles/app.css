@@ -96,3 +96,19 @@
   .topbar { position: static; padding: 12px 16px; }
   .main { padding: 16px; }
 }
+
+/* ===== Redesign layer: portfolio design language ===== */
+body{font-family:var(--ds-font);font-feature-settings:"cv11","ss01","ss03"}
+::selection{background:rgb(99 91 255 / 45%)}
+:root[data-theme="dark"] .ds-texture{opacity:.6}
+:root[data-theme="light"] .ds-texture{opacity:0}
+.topbar{background:color-mix(in srgb,var(--app-bg) 70%,transparent);backdrop-filter:blur(16px) saturate(170%)}
+.brand__title{letter-spacing:-.02em;font-weight:620}
+.segmented{border-radius:999px;border-color:var(--app-border-strong)}
+.segmented__item{border-radius:999px;transition:background .2s,color .15s,transform .1s}
+.segmented__item:active{transform:scale(.97)}
+.reset-btn{border-radius:999px;transition:background .15s,border-color .15s,transform .1s}
+.reset-btn:active:not(:disabled){transform:scale(.97)}
+:focus-visible{outline:2px solid #22d3ee;outline-offset:2px}
+.main{animation:ds-rise .6s var(--ds-ease) both}
+@media (prefers-reduced-motion:reduce){.main{animation:none}.segmented__item:active,.reset-btn:active{transform:none}}
