@@ -1,93 +1,61 @@
 # Design System Playground
 
-An interactive playground for designing a token-driven UI kit in the browser. Pick a primary and neutral color, tune the spacing scale, radius and type size, and watch a live component preview update instantly. When it feels right, copy the generated CSS variables and a sample React component straight into your project.
+**Tune a handful of design tokens, see real components react instantly, then copy the CSS variables and a React component into your project.**
 
-![Design System Playground](docs/screenshot.png)
+[![React](https://img.shields.io/badge/React-18-6366f1)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-6366f1)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5-6366f1)](https://vite.dev/)
+[![Plain CSS](https://img.shields.io/badge/styling-plain%20CSS%20variables-64748b)](src/styles)
+[![Runtime deps](https://img.shields.io/badge/runtime%20deps-react%20%2B%20react--dom-64748b)](package.json)
 
-> Screenshot lives at `docs/screenshot.png`. Replace it with a fresh capture whenever the UI changes.
+**Live demo:** https://design-system-playground-two.vercel.app
 
-## Live Demo
+> **Example:** pick `#0f766e` as the primary color, raise the radius to 14 and switch to compact density. Every Button, Input, Card and Badge in the preview updates at once, the text on filled buttons flips to whichever of light or dark reads better, and the export panel shows the exact `:root` variables to paste into your app.
 
-**https://design-system-playground.vercel.app** _(placeholder: update this link after the first Vercel deploy)_
+![Design System Playground screenshot](docs/screenshot.png)
 
-The source repository is private; the demo is public.
+## Architecture
 
-## Features
+![Design System Playground architecture](assets/architecture.svg)
 
-- **Live token controls**
-  - Primary and neutral color pickers (with hex input) that each generate an 11-step tonal scale (50 to 950)
-  - Spacing scale from a base unit and a ratio (`space-n = base × ratio^(n-1)`)
-  - Border radius and base font size, with derived `sm / md / lg` and type-scale tokens
-- **Live component preview**: Button (primary, secondary, ghost, danger; sm, md, lg; disabled), Input (label, helper text, error, disabled), Card, Badge (neutral, primary, success, warning, danger). Every component reads only from generated CSS variables.
-- **Theme toggle** (dark by default, light) and **density toggle** (comfortable, compact)
-- **Export panels** for the generated CSS variables and a sample React `Button`, each with a copy button, "Copied" feedback and a fallback for browsers without the Clipboard API
-- **Reset to defaults**, and **settings persisted** to `localStorage`
-- Accessible by default: labelled controls, radio-group toggles, visible focus rings, live-region copy announcements, reduced-motion support
-- Responsive layout: sidebar and canvas on desktop, stacked on small screens
-- Zero runtime dependencies beyond React, plain CSS with variables
+A static single-page app. There is no server, no network call and no account.
 
-## Getting started
+## How it works
+
+1. **One settings object.** `tokens.ts` defines the settings (primary, neutral, spacing base and ratio, radius, font size, theme, density), their defaults and their min and max limits. `sanitizeSettings` validates anything read back from `localStorage`, so bad stored data falls back to defaults.
+2. **Color engine.** `color.ts` converts hex and HSL and builds an 11-step tonal scale (50 to 950) anchored on the picked color. `contrastRatio` uses the WCAG luminance formula, and `readableOn` picks the more readable of two text colors for each filled surface.
+3. **Spacing and type.** Spacing follows `space-n = base x ratio^(n-1)` over 8 steps. Radius and font size derive `sm`, `md` and `lg` variants.
+4. **CSS generation.** `css.ts` turns settings into one CSS variable sheet: scales, semantic tokens per theme (`--bg`, `--surface`, `--text`, `--primary`, `--danger` and more), spacing, radius, type and a density multiplier.
+5. **What you see is what you copy.** The preview applies that sheet scoped to `.ds-scope`, and the export panel shows the same sheet on `:root`. The UI components (`src/components/ui`) read only these variables.
+6. **Code export.** `codegen.ts` writes a sample React `Button` that uses the variables. Both panels copy to the clipboard, with a hidden textarea fallback when the async Clipboard API is missing.
+
+## Run locally
 
 Requires Node.js 18 or newer.
 
 ```bash
 npm install
-npm run dev
+npm run dev         # http://localhost:5173
+npm run build       # type-check, then build to dist/
 ```
 
-Then open the URL Vite prints (usually http://localhost:5173).
+No environment variables are needed, so there is no `.env.example`.
 
-## Scripts
+## Evaluation
 
-| Script              | Description                                  |
-| ------------------- | -------------------------------------------- |
-| `npm run dev`       | Start the Vite dev server                    |
-| `npm run build`     | Type-check (`tsc --noEmit`) and build to `dist/` |
-| `npm run preview`   | Serve the production build locally           |
-| `npm run typecheck` | Type-check only                              |
+There is no automated test suite yet. `npm run build` runs `tsc --noEmit` in strict mode first. The contrast helper follows the WCAG 2 formula, but the app does not report a pass or fail per token pair; that would be a good first test target.
 
-## Project structure
+## Honest limitations
 
-```
-.
-├── docs/                    # Screenshot for this README
-├── public/                  # Static assets (favicon)
-├── src/
-│   ├── components/
-│   │   ├── code/            # CodePanel (copy button + feedback)
-│   │   ├── controls/        # ColorField, RangeField, SegmentedControl, ControlsPanel
-│   │   ├── layout/          # TopBar (theme, density, reset)
-│   │   ├── preview/         # Preview canvas, sections, tonal scale strips
-│   │   └── ui/              # Button, Input, Card, Badge (the system under test)
-│   ├── hooks/               # useSettings, useLocalStorage, useClipboard
-│   ├── lib/
-│   │   ├── color.ts         # hex/HSL conversion, tonal scales, contrast helpers
-│   │   ├── tokens.ts        # Settings type, defaults, limits, validation
-│   │   ├── css.ts           # Settings -> CSS variable sheet
-│   │   └── codegen.ts       # Settings -> sample React component
-│   ├── styles/              # base, app shell, controls, code panels, ds components, preview
-│   ├── App.tsx
-│   └── main.tsx
-├── index.html
-├── vite.config.ts
-└── tsconfig.json
-```
+- A personal portfolio prototype with no real users.
+- Four components only (Button, Input, Card, Badge). No layout, form or navigation patterns.
+- Exports CSS variables and one React sample. No design token JSON (for example W3C format), Figma sync or Tailwind config.
+- Contrast is used to pick text color, not to warn when a chosen palette fails WCAG AA.
+- Settings live in one browser's `localStorage`; there is no sharing or versioning.
+- No automated tests.
 
-## How it works
+## Stack
 
-`src/lib/css.ts` turns the current settings into a CSS variable sheet: color scales, semantic tokens per theme (`--bg`, `--surface`, `--text`, `--primary`, `--danger`, and so on), spacing, radius, type sizes and a `--density` multiplier. The preview canvas applies that exact sheet scoped to `.ds-scope`, and the export panel shows it on `:root`, so what you see is what you copy. Foreground colors on filled buttons are chosen automatically for contrast.
+React 18, TypeScript 5 (strict), Vite 5, plain CSS with custom properties, browser `localStorage`. Runtime dependencies are `react` and `react-dom` only.
 
-## Deploy notes
-
-The project is a static Vite build, so any static host works. On Vercel:
-
-1. Push this repository to GitHub (private is fine).
-2. Import it at https://vercel.com/new. Vercel detects Vite: build command `npm run build`, output directory `dist`.
-3. Deploy. Every push to `main` redeploys automatically.
-4. Put the resulting `*.vercel.app` URL in the **Live Demo** section above.
-
-No environment variables are required.
-
-## License
-
-Personal portfolio project. All rights reserved unless a license is added.
+Part of the Lab at https://www.abhidattasrichandan.com
